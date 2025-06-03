@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import "./activitycard.css";
 import { addparticipation } from '../JS/participationSlice';
 
-function Detail() {
+function Detail({ping, setping}) {
   const user = useSelector((state) => state.user.user);
   const activites = useSelector((state) => state.activite.activitelist);
   const dispatch = useDispatch();
@@ -42,6 +42,7 @@ function Detail() {
     dispatch(addparticipation(newParticipation))
       .then((result) => {
         console.log("Dispatch result:", result);
+        setping(!ping);
         if (result.type.endsWith('/fulfilled')) {
           alert("Thanks for your participation!");
           // Reset form only after successful submission

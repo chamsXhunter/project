@@ -20,15 +20,18 @@ import FoodProteine from "./components/FoodProteine";
 import FoodCarb from "./components/FoodCarb";
 import Detail from "./components/Detail";
 import { getparticipation } from "./JS/participationSlice";
+import { useState } from "react";
 
 function App() {
   const isAuth = localStorage.getItem("token");
   const dispatch = useDispatch();
+  const [ping, setping] = useState(false)
   useEffect(() => {
     dispatch(userCurrent());
     dispatch(getactivite());
     dispatch(getparticipation());
-  });
+    
+  }, [ping]);
   return (
     <div className="App">
      <Navbarr/>
@@ -37,15 +40,15 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
          <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
+        <Route path="/services" element={<Services ping={ping} setping={setping}  />} />
          <Route path="/nutrition" element={<Nutrition />} />
          <Route path="/vitamine" element={<FoodVitamine />} />
                <Route path="/proteine" element={<FoodProteine />} />
                      <Route path="/carb" element={<FoodCarb />} />
-                        <Route path="/detail/:id" element={<Detail />} />
+                        <Route path="/detail/:id" element={<Detail ping={ping} setping={setping} />} />
          <Route path="/nutition" element={<Nutrition />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/profil" element={<Profil />} />
+          <Route path="/profil" element={<Profil ping={ping} setping={setping} />} />
         </Route>{" "}
       </Routes>
 

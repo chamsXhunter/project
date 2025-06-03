@@ -32,9 +32,31 @@ export const userCurrent = createAsyncThunk("user/current", async () => {
     console.log(error);
   }
 });
+
+export const deleteuser = createAsyncThunk("user/delete", async (id) => {
+  try {
+    let result = await axios.delete(`http://localhost:5000/user/${id}`);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const edituser = createAsyncThunk(
+  "user/edit",
+  async ({ id, edited }) => {
+    try {
+      let result = await axios.put(`http://localhost:5000/user/${id}`, edited);
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 const initialState = {
   user: null,
   status: null,
+  userlist:[],
 };
 
 export const userSlice = createSlice({
